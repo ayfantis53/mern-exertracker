@@ -22,8 +22,8 @@ app.use(cors());
 app.use(express.json());
 
 // routes to databases.
-app.use('/users',     userRoutes);
-app.use('/exercises', exerciseRoutes);
+app.use('/api/users',     userRoutes);
+app.use('/api/exercises', exerciseRoutes);
 
 // Connect to database and port.
 app.listen(port, () => {
