@@ -16,7 +16,11 @@
 # For building Exertracker frontend on pipeline
 ############################################################################################
 
-# Use the official Node.js image as the base image for the builder stage.
+# ============================================
+# Stage 1: Builder
+# ============================================
+# Use the official Node.js runtime as the parent image.
+# This provides the necessary environment to run a Node.js application.
 FROM node:latest AS builder
 
 # Set the working directory inside the container to /app
@@ -36,14 +40,12 @@ COPY . .
 # This creates the optimized production build of the application in the 'build' directory.
 RUN npm run build
 
-############################################################################################
-# NGINX Building Layer
-# This is a MINIMAL RUNTIME image so project can use ingress on k8s cluster
-# For k8s deployment of app
-############################################################################################
 
-# Use the official Node.js runtime as the parent image.
-# This provides the necessary environment to run a Node.js application.
+# ============================================
+# Stage 2: Add Igress
+# ============================================
+# Use the official Nginx base image
+# Using an official image ensures you get all necessary Nginx setup and entrypoint scripts.
 FROM nginx
 
 # Expose port 80 to the outside world
