@@ -84,19 +84,23 @@ deploy:
 # script:
 #   - docker run -e CI=true ayfantis53/multi-client npm test
 
-# # 4. --  Deployment configuration for Elastic Kubernetes Service -- #
+# # # 4. --  Actions to perform only if the test script succeeds -- #
+# # after_success: 
+# #   # Build Images.
+# #   - docker build -t ayfantis53/mern-exertracker-client:latest -t ayfantis53/mern-exertracker-client:$SHA -f ./client/Dockerfile ./client
+# #   - docker build -t ayfantis53/mern-exertracker-server:latest -t ayfantis53/mern-exertracker-server:$SHA -f ./server/Dockerfile ./server
+
+# #   - docker push ayfantis53/mern-exertracker-client:latest
+# #   - docker push ayfantis53/mern-exertracker-server:latest
+
+# #   - docker push ayfantis53/mern-exertracker-client:$SHA
+# #   - docker push ayfantis53/mern-exertracker-server:$SHA
+
+
+# # 5. --  Deployment configuration for Elastic Kubernetes Service -- #
 # deploy:
 #   provider: script
 #   script:
-#     # - docker build -t ayfantis53/mern-exertracker-client:latest -t ayfantis53/mern-exertracker-client:$SHA -f ./client/Dockerfile ./client
-#     # - docker build -t ayfantis53/mern-exertracker-server:latest -t ayfantis53/mern-exertracker-server:$SHA -f ./server/Dockerfile ./server
-
-#     # - docker push ayfantis53/mern-exertracker-client:latest
-#     # - docker push ayfantis53/mern-exertracker-server:latest
-
-#     # - docker push ayfantis53/mern-exertracker-client:$SHA
-#     # - docker push ayfantis53/mern-exertracker-server:$SHA
-
 #     # Start EKS cluster.
 #     - echo "starting"
 #     - aws eks --region us-east-2 describe-cluster --name eks-cluster --query cluster.status
